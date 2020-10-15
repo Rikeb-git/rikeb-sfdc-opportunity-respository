@@ -152,9 +152,14 @@ view: pipeline_snapshot_new {
     sql: ${TABLE}.Total_Opportunity_Value_Converted ;;
   }
 
-  dimension: value_converted {
-    type: string
+  dimension: value_converted1 {
+    type: number
     sql: ${TABLE}.Value_Converted ;;
+  }
+
+  dimension: value_converted {
+    type: number
+    sql: CAST(${TABLE}.Value_Converted as float) ;;
   }
 
   dimension: won_lost_reason {
@@ -165,5 +170,34 @@ view: pipeline_snapshot_new {
   measure: count {
     type: count
     drill_fields: []
+  }
+  measure: pipeline {
+    type: sum
+    sql: ${value_converted} ;;
+    value_format: "$ 0.000,,\" M\""
+    filters: {
+      field: forecast_category
+      value: "Pipeline"
+    }
+  }
+
+  measure: upside {
+    type: sum
+    sql: ${value_converted} ;;
+    value_format: "$ 0.000,,\" M\""
+    filters: {
+      field: forecast_category
+      value: "Upside"
+    }
+  }
+
+  measure: commit {
+    type: sum
+    sql: ${value_converted} ;;
+    value_format: "$ 0.000,,\" M\""
+    filters: {
+      field: forecast_category
+      value: "Commit"
+    }
   }
 }
