@@ -17,7 +17,7 @@ view: pipeline_snapshot_new {
   }
 
   dimension: close_date {
-    type: string
+    type: date
     sql: ${TABLE}.Close_Date ;;
   }
 
@@ -128,7 +128,7 @@ view: pipeline_snapshot_new {
   }
 
   dimension: snap_date {
-    type: string
+    type: date
     sql: ${TABLE}.Snap_Date ;;
   }
 
@@ -148,16 +148,16 @@ view: pipeline_snapshot_new {
   }
 
   dimension: total_opportunity_value_converted {
-    type: string
+    type: number
     sql: ${TABLE}.Total_Opportunity_Value_Converted ;;
   }
 
-  dimension: value_converted1 {
+  dimension: value_converted {
     type: number
     sql: ${TABLE}.Value_Converted ;;
   }
 
-  dimension: value_converted {
+  dimension: value_converted1 {
     type: number
     sql: CAST(${TABLE}.Value_Converted as float) ;;
   }
