@@ -51,21 +51,6 @@ view: pipeline_snapshot {
     sql: ${TABLE}.Forecast_Category ;;
   }
 
-  dimension: hpe_opportunity_id {
-    type: string
-    sql: ${TABLE}.HPE_Opportunity_Id ;;
-  }
-
-  dimension: hpe_sub_total {
-    type: number
-    sql: ${TABLE}.HPE_SUB_TOTAL ;;
-  }
-
-  dimension: hpe_sub_total_converted {
-    type: number
-    sql: ${TABLE}.HPE_SUB_TOTAL_CONVERTED ;;
-  }
-
   dimension: industry_segment {
     type: string
     sql: ${TABLE}.Industry_Segment ;;
@@ -84,6 +69,11 @@ view: pipeline_snapshot {
   dimension: market_segmentation {
     type: string
     sql: ${TABLE}.Market_Segmentation ;;
+  }
+
+  dimension: opportunity_id {
+    type: string
+    sql: ${TABLE}.Opportunity_Id ;;
   }
 
   dimension: opportunity_owner {
@@ -165,6 +155,16 @@ view: pipeline_snapshot {
     sql: ${TABLE}.SubRegion2 ;;
   }
 
+  dimension: sub_total {
+    type: number
+    sql: ${TABLE}.SUB_TOTAL ;;
+  }
+
+  dimension: sub_total_converted {
+    type: number
+    sql: ${TABLE}.SUB_TOTAL_CONVERTED ;;
+  }
+
   dimension: total_opportunity_value_converted {
     type: number
     sql: ${TABLE}.Total_Opportunity_Value_Converted ;;
@@ -183,5 +183,76 @@ view: pipeline_snapshot {
   measure: count {
     type: count
     drill_fields: []
+  }
+  measure: pipeline {
+    type: sum
+    sql: ${value_converted} ;;
+    value_format: "$ 0.000,,\" M\""
+    filters: {
+      field: forecast_category
+      value: "Pipeline"
+    }
+  }
+
+  measure: upside {
+    type: sum
+    sql: ${value_converted} ;;
+    value_format: "$ 0.000,,\" M\""
+    filters: {
+      field: forecast_category
+      value: "Upside"
+    }
+  }
+
+  measure: commit {
+    type: sum
+    sql: ${value_converted} ;;
+    value_format: "$ 0.000,,\" M\""
+    filters: {
+      field: forecast_category
+      value: "Commit"
+    }
+  }
+
+  measure: won {
+    type: sum
+    sql: ${value_converted} ;;
+    value_format: "$ 0.000,,\" M\""
+    filters: {
+      field: forecast_category
+      value: "Won"
+    }
+  }
+
+  measure: omitted {
+    type: sum
+    sql: ${value_converted} ;;
+    value_format: "$ 0.000,,\" M\""
+    filters: {
+      field: forecast_category
+      value: "Omitted"
+    }
+  }
+
+  measure: open_pipeline {
+    type: sum
+    sql:
+    CASE WHEN ${forecast_category} = 'Pipeline' OR ${forecast_category} = 'Upside' OR ${forecast_category} = 'Commit'
+
+    THEN ${value_converted}
+    ELSE NULL
+    END ;;
+    value_format: "$ 0.000,,\" M\""
+  }
+
+  measure: total_pipeline {
+    type: sum
+    sql:
+    CASE WHEN ${forecast_category} = 'Pipeline' OR ${forecast_category} = 'Upside' OR ${forecast_category} = 'Commit' OR ${forecast_category} = 'Won'
+
+    THEN ${value_converted}
+    ELSE NULL
+    END ;;
+    value_format: "$ 0.000,,\" M\""
   }
 }
