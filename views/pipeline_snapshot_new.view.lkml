@@ -1,5 +1,5 @@
 view: pipeline_snapshot_new {
-  sql_table_name: dbo.PIPELINE_SNAPSHOT_new ;;
+  sql_table_name: dbo.PIPELINE_SNAPSHOT ;;
 
   dimension: account_name_latin_capture {
     type: string
