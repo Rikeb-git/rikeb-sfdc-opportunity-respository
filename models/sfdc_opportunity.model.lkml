@@ -16,19 +16,19 @@ explore: budget_fy2020_table {}
 
 explore: console_view {}
 
-explore: pipeline_snapshot {}
+#explore: pipeline_snapshot {}
 
-explore: pipeline_snapshot_new {
+explore: pipeline_snapshot {
   join: fiscal_time {
     from: fiscal_time
     type: left_outer
-    sql_on: ${pipeline_snapshot_new.close_date} = ${fiscal_time.calendar_date} ;;
+    sql_on: ${pipeline_snapshot.close_date} = ${fiscal_time.calendar_date} ;;
     relationship: many_to_one
   }
   join: snap_date {
     from: fiscal_time
     type: left_outer
-    sql_on: ${pipeline_snapshot_new.snap_date} = ${fiscal_time.calendar_date} ;;
+    sql_on: ${pipeline_snapshot.snap_date} = ${fiscal_time.calendar_date} ;;
     relationship: many_to_one
   }
 }
