@@ -18,48 +18,48 @@ explore: console_view {}
 
 #explore: fiscal_time {}
 
-explore: pipeline_snapshot {}
+# explore: pipeline_snapshot {}
 
-#explore: pipeline_snapshot {
+explore: pipeline_snapshot {
 
- # join: close_date {
-  #  from: std_disc_fiscal_time
-   # type: left_outer
-    #sql_on: ${pipeline_snapshot.close_date} = ${close_date.calendar_date} ;;
-    #relationship: many_to_one
-  #}
-  #join: snap_date {
-   # from: std_disc_fiscal_time
-    #type: left_outer
-    #sql_on: ${pipeline_snapshot.snap_date} = ${snap_date.calendar_date} ;;
-    #relationship: many_to_one
-  #}
-#}
-
-
-explore: std_disc_fiscal_time {
   join: close_date {
-    from: pipeline_snapshot
-    #type: left_outer
-    #sql_on: ${pipeline_snapshot.close_date} = ${close_date.calendar_date} ;;
-    #sql_on: ${std_disc_fiscal_time.calendar_date} = ${close_date.close_date} ;;
-    sql: RIGHT JOIN pipeline_snapshot  as close_date ON  ${std_disc_fiscal_time.calendar_date} = ${close_date.close_date} ;;
+    from: std_disc_fiscal_time
+    type: left_outer
+    sql_on: ${pipeline_snapshot.close_date} = ${close_date.calendar_date} ;;
     relationship: many_to_one
   }
   join: snap_date {
-    from: pipeline_snapshot
-    #type: left_outer
-    #sql_on: ${pipeline_snapshot.snap_date} = ${snap_date.calendar_date} ;;
-    #sql_on: ${std_disc_fiscal_time.calendar_date} = ${snap_date.snap_date} ;;
-    sql: RIGHT JOIN pipeline_snapshot as snap_date ON ${std_disc_fiscal_time.calendar_date} = ${snap_date.snap_date} ;;
+    from: std_disc_fiscal_time
+    type: left_outer
+    sql_on: ${pipeline_snapshot.snap_date} = ${snap_date.calendar_date} ;;
     relationship: many_to_one
   }
 }
 
-explore: std_disc_fiscal_time_snapshot {
-  join: pipeline_snapshot {
-    type: left_outer
-    sql_on: ${std_disc_fiscal_time_snapshot.calendar_date} = ${pipeline_snapshot.snap_date} ;;
-    relationship: many_to_one
-  }
-}
+
+# explore: std_disc_fiscal_time {
+#   join: close_date {
+#     from: pipeline_snapshot
+#     #type: left_outer
+#     #sql_on: ${pipeline_snapshot.close_date} = ${close_date.calendar_date} ;;
+#     #sql_on: ${std_disc_fiscal_time.calendar_date} = ${close_date.close_date} ;;
+#     sql: RIGHT JOIN pipeline_snapshot  as close_date ON  ${std_disc_fiscal_time.calendar_date} = ${close_date.close_date} ;;
+#     relationship: many_to_one
+#   }
+#   join: snap_date {
+#     from: pipeline_snapshot
+#     #type: left_outer
+#     #sql_on: ${pipeline_snapshot.snap_date} = ${snap_date.calendar_date} ;;
+#     #sql_on: ${std_disc_fiscal_time.calendar_date} = ${snap_date.snap_date} ;;
+#     sql: RIGHT JOIN pipeline_snapshot as snap_date ON ${std_disc_fiscal_time.calendar_date} = ${snap_date.snap_date} ;;
+#     relationship: many_to_one
+#   }
+# }
+
+# explore: std_disc_fiscal_time_snapshot {
+#   join: pipeline_snapshot {
+#     type: left_outer
+#     sql_on: ${std_disc_fiscal_time_snapshot.calendar_date} = ${pipeline_snapshot.snap_date} ;;
+#     relationship: many_to_one
+#   }
+# }
