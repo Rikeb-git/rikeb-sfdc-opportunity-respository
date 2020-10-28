@@ -156,6 +156,7 @@ view: std_disc_fiscal_time_snapshot {
   dimension: fiscal_quarter_year {
     type: string
     sql: ${TABLE}.FiscalQuarterYear ;;
+    suggest_persist_for: "2 seconds"
   }
 
   dimension: fiscal_week_ago {
