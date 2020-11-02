@@ -103,6 +103,8 @@ view: std_disc_fiscal_time {
     sql: ${TABLE}.FiscalMonthNumInQtr ;;
   }
 
+
+
   dimension: fiscal_month_num_in_year {
     type: number
     sql: ${TABLE}.FiscalMonthNumInYear ;;
@@ -168,6 +170,13 @@ view: std_disc_fiscal_time {
     type: string
     sql: ${TABLE}.FiscalWeekNumInQtr ;;
   }
+
+  dimension: fiscal_wk_number_in_qtr {
+    type: number
+    #sql: toint(substring(${TABLE}.FiscalWeekNumInQtr,4,strlen(${TABLE}.FiscalWeekNumInQtr))) ;;
+    #sql: substring(${fiscal_week_num_in_qtr}, 3, DATALENGTH(${fiscal_week_num_in_qtr}));;
+    sql: cast(substring(${fiscal_week_num_in_qtr}, 3, DATALENGTH(${fiscal_week_num_in_qtr})) as bigint);;
+    }
 
   dimension: fiscal_week_qtr {
     type: string

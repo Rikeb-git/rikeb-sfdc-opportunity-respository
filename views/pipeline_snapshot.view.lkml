@@ -1,5 +1,14 @@
 view: pipeline_snapshot {
-  sql_table_name: dbo.PIPELINE_SNAPSHOT ;;
+  #sql_table_name: dbo.PIPELINE_SNAPSHOT ;;
+
+  derived_table: {
+    sql:
+      SELECT
+       *
+      FROM
+        dbo.PIPELINE_SNAPSHOT
+      where region='EMEA'         ;;
+  }
 
   dimension: account_name_latin_capture {
     type: string

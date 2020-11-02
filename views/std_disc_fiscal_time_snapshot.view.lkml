@@ -169,6 +169,12 @@ view: std_disc_fiscal_time_snapshot {
     sql: ${TABLE}.FiscalWeekNumInQtr ;;
   }
 
+  dimension: fiscal_wk_number_in_qtr {
+    type: number
+    #sql: toint(substring(${TABLE}.FiscalWeekNumInQtr,4,strlen(${TABLE}.FiscalWeekNumInQtr))) ;;
+    sql: substring(${fiscal_week_num_in_qtr}, 3, DATALENGTH(${fiscal_week_num_in_qtr}));;
+  }
+
   dimension: fiscal_week_qtr {
     type: string
     sql: ${TABLE}.FiscalWeekQtr ;;
