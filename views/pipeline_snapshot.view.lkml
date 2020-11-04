@@ -196,7 +196,7 @@ view: pipeline_snapshot {
   measure: pipeline {
     type: sum
     sql: ${value_converted} ;;
-    value_format: "$ 0.000,,\" M\""
+    value_format: "$ 0.00,,\" M\""
     filters: {
       field: forecast_category
       value: "Pipeline"
@@ -206,7 +206,7 @@ view: pipeline_snapshot {
   measure: upside {
     type: sum
     sql: ${value_converted} ;;
-    value_format: "$ 0.000,,\" M\""
+    value_format: "$ 0.00,,\" M\""
     filters: {
       field: forecast_category
       value: "Upside"
@@ -216,7 +216,7 @@ view: pipeline_snapshot {
   measure: commit {
     type: sum
     sql: ${value_converted} ;;
-    value_format: "$ 0.000,,\" M\""
+    value_format: "$ 0.00,,\" M\""
     filters: {
       field: forecast_category
       value: "Commit"
@@ -226,7 +226,7 @@ view: pipeline_snapshot {
   measure: won {
     type: sum
     sql: ${value_converted} ;;
-    value_format: "$ 0.000,,\" M\""
+    value_format: "$ 0.00,,\" M\""
     filters: {
       field: forecast_category
       value: "Won"
@@ -236,7 +236,7 @@ view: pipeline_snapshot {
   measure: omitted {
     type: sum
     sql: ${value_converted} ;;
-    value_format: "$ 0.000,,\" M\""
+    value_format: "$ 0.00,,\" M\""
     filters: {
       field: forecast_category
       value: "Omitted"
@@ -251,7 +251,7 @@ view: pipeline_snapshot {
     THEN ${value_converted}
     ELSE NULL
     END ;;
-    value_format: "$ 0.000,,\" M\""
+    value_format: "$ 0.00,,\" M\""
   }
 
   measure: total_pipeline {
@@ -262,6 +262,17 @@ view: pipeline_snapshot {
     THEN ${value_converted}
     ELSE NULL
     END ;;
-    value_format: "$ 0.000,,\" M\""
+    value_format: "$ 0.00,,\" M\""
+  }
+
+  measure: Pipeline_Commit_Won{
+    type: sum
+    sql:
+    CASE WHEN ${forecast_category} = 'Pipeline' OR ${forecast_category} = 'Commit'
+
+    THEN ${value_converted}
+    ELSE NULL
+    END ;;
+    value_format: "$ 0.00,,\" M\""
   }
 }

@@ -23,7 +23,7 @@ explore: console_view {}
 explore: pipeline_snapshot {
 
   sql_always_where: ${pipeline_snapshot.close_date} = ${close_date.calendar_date}
-    AND ${pipeline_snapshot.snap_date} = ${snap_date.calendar_date} AND ${pipeline_snapshot.country}='India';;
+    AND ${pipeline_snapshot.snap_date} = ${snap_date.calendar_date};;
 
   join: close_date {
     from: std_disc_fiscal_time
