@@ -12,10 +12,6 @@ persist_with: sfdc_opportunity_default_datagroup
 
 explore: birst_reported_region_map {}
 
-explore: budget_fy2020_table {}
-
-explore: console_view {}
-
 #explore: fiscal_time {}
 
 # explore: pipeline_snapshot {}

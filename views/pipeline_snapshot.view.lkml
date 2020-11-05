@@ -286,4 +286,26 @@ view: pipeline_snapshot {
     type: count_distinct
     sql: ${opportunity_id} ;;
   }
+
+  # parameter: date_granularity {
+  #   type: string
+  #   allowed_value: { value: "Weekly" }
+  #   allowed_value: { value: "Quarterly" }
+  # }
+
+  # dimension: date {
+  #   label_from_parameter: date_granularity
+  #   sql:
+  #   CASE
+  #     WHEN {% parameter date_granularity %} = 'Day'
+  #       THEN ${created_date}::VARCHAR
+  #     WHEN {% parameter date_granularity %} = 'Month'
+  #       THEN ${created_month}::VARCHAR
+  #     WHEN {% parameter date_granularity %} = 'Quarter'
+  #       THEN ${created_quarter}::VARCHAR
+  #     WHEN {% parameter date_granularity %} = 'Year'
+  #       THEN ${created_year}::VARCHAR
+  #     ELSE NULL
+  #   END ;;
+  # }
 }

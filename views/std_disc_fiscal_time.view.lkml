@@ -26,7 +26,8 @@ view: std_disc_fiscal_time {
       week,
       month,
       quarter,
-      year
+      year,
+      week_of_year
     ]
     convert_tz: no
     datatype: date
@@ -102,8 +103,6 @@ view: std_disc_fiscal_time {
     type: number
     sql: ${TABLE}.FiscalMonthNumInQtr ;;
   }
-
-
 
   dimension: fiscal_month_num_in_year {
     type: number
@@ -322,5 +321,23 @@ view: std_disc_fiscal_time {
   measure: count {
     type: count
     drill_fields: [id]
+  }
+
+  parameter: date_granularity {
+    type: string
+    allowed_value: { value: "Weekly" }
+    allowed_value: { value: "Quarterly" }
+  }
+
+  dimension: date {
+    label_from_parameter: date_granularity
+    sql:
+    CASE
+      WHEN {% parameter date_granularity %} = 'Weekly'
+        THEN cast(${fiscal_week_num_in_qtr} as varchar)
+      WHEN {% parameter date_granularity %} = 'Quarterly'
+        THEN cast(${fiscal_quarter_year} as varchar)
+      ELSE NULL
+    END ;;
   }
 }
