@@ -183,6 +183,12 @@ view: pipeline_snapshot {
     type: number
     sql: ${TABLE}.Value_Converted ;;
   }
+  dimension: buckets {
+    type: tier
+    tiers: [0, 25000, 50000, 100000, 250000, 500000, 1000000, 5000000, 10000000]
+    style: relational
+    sql: ${value_converted} ;;
+  }
 
   dimension: won_lost_reason {
     type: string
