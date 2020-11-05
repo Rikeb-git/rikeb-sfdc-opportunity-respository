@@ -275,4 +275,15 @@ view: pipeline_snapshot {
     END ;;
     value_format: "$ 0.00,,\" M\""
   }
+
+  measure: valueconverted {
+    type: sum
+    sql: ${value_converted} ;;
+    value_format: "$ 0.00,,\" M\""
+  }
+
+  measure: dealcount {
+    type: count_distinct
+    sql: ${opportunity_id} ;;
+  }
 }
