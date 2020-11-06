@@ -326,17 +326,29 @@ view: std_disc_fiscal_time {
   parameter: date_granularity {
     type: string
     allowed_value: { value: "Weekly" }
-    allowed_value: { value: "Quarterly" }
+    allowed_value: { value: "Yearly" }
   }
+
+  # dimension: date {
+  #   label_from_parameter: date_granularity
+  #   sql:
+  #   CASE
+  #     WHEN {% parameter date_granularity %} = 'Weekly'
+  #       THEN cast(${fiscal_week_num_in_qtr} as varchar)
+  #     WHEN {% parameter date_granularity %} = 'Quarterly'
+  #       THEN cast(${fiscal_quarter_year} as varchar)
+  #     ELSE NULL
+  #   END ;;
+  # }
 
   dimension: date {
     label_from_parameter: date_granularity
     sql:
     CASE
       WHEN {% parameter date_granularity %} = 'Weekly'
-        THEN cast(${fiscal_week_num_in_qtr} as varchar)
-      WHEN {% parameter date_granularity %} = 'Quarterly'
-        THEN cast(${fiscal_quarter_year} as varchar)
+        THEN cast(${fiscal_wk_number_in_qtr} as int)
+      WHEN {% parameter date_granularity %} = 'Yearly'
+        THEN cast(${fiscal_year} as int)
       ELSE NULL
     END ;;
   }
