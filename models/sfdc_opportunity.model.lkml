@@ -30,12 +30,12 @@ explore: pipeline_snapshot {
     sql_on: ${pipeline_snapshot.close_date} = ${close_date.calendar_date} ;;
     relationship: many_to_one
   }
-  # join: snap_date {
-  #   from: std_disc_fiscal_time
-  #   type: left_outer
-  #   sql_on: ${pipeline_snapshot.snap_date} = ${snap_date.calendar_date} ;;
-  #   relationship: many_to_one
-  # }
+  join: snap_date {
+    from: std_disc_fiscal_time
+    type: left_outer
+    sql_on: ${pipeline_snapshot.snap_date} = ${snap_date.calendar_date} ;;
+    relationship: many_to_one
+  }
 }
 
 
