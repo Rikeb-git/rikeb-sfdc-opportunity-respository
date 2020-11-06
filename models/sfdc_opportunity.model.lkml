@@ -18,11 +18,12 @@ explore: birst_reported_region_map {}
 
 explore: pipeline_snapshot {
 
-  # sql_always_where: ${pipeline_snapshot.close_date} = ${close_date.calendar_date}
-  #   AND ${pipeline_snapshot.snap_date} = ${snap_date.calendar_date};;
-
   sql_always_where: ${pipeline_snapshot.close_date} = ${close_date.calendar_date}
-  ;;
+    AND ${pipeline_snapshot.snap_date} = ${snap_date.calendar_date}
+    AND ${sales_stage}!='Error';;
+
+  # sql_always_where: ${pipeline_snapshot.close_date} = ${close_date.calendar_date}
+  # ;;
 
   join: close_date {
     from: std_disc_fiscal_time

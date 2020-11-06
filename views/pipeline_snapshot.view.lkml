@@ -293,6 +293,11 @@ view: pipeline_snapshot {
     sql: ${opportunity_id} ;;
   }
 
+  dimension: geo_drilldown {
+    sql: ${TABLE}.country ;;
+    drill_fields: [region,sub_region1,sub_region2]
+  }
+
   # parameter: date_granularity {
   #   type: string
   #   allowed_value: { value: "Weekly" }
