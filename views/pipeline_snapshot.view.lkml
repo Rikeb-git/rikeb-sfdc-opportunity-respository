@@ -294,7 +294,41 @@ view: pipeline_snapshot {
   }
 
   dimension: geo_drilldown {
-    sql: ${TABLE}.country ;;
-    drill_fields: [region,sub_region1,sub_region2]
+    sql: ${TABLE}.region ;;
+    drill_fields: [sub_region1,sub_region2,country]
+  }
+
+  parameter: metric_selector {
+    type: string
+    allowed_value: {
+      label: "Deal Value"
+      value: "valueconverted"
+    }
+    allowed_value: {
+      label: "Deal Count"
+      value: "dealcount"
+    }
+  }
+
+  measure: metric {
+    label_from_parameter: metric_selector
+    type: number
+#value_format: "$ 0.00,,\" M\""
+value_format:"[>=1000000]$0.00,,\"M\";0"
+    sql:
+    CASE
+    WHEN {% parameter metric_selector %} = 'valueconverted'
+    THEN ${valueconverted}
+    WHEN {% parameter metric_selector %} = 'dealcount'
+    THEN ${dealcount}
+    ELSE NULL
+    END ;;
+    # html: {% if metric_selector._parameter_value == 'valueconverted' %}
+    #   {{rendered_value | divided_by: 1000000 | round: 2}} M
+    #   {% elsif metric_selector._parameter_value == 'dealcount' %}
+    #   {{rendered_value}}
+    #   {% else %}
+    #   {{rendered_value}}
+    #   {% endif %};;
   }
 }
