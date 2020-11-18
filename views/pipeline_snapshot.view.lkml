@@ -156,7 +156,6 @@ view: pipeline_snapshot {
     # sql: ${snap_day_of_week_index} <= DAYOFWEEK(CURRENT_DATE)-1 AND ${snap_day_of_week_index} >= 0 ;;
     # sql: ${snap_day_of_week_index} <= DAYOFWEEK(CONVERT (DATE, SYSDATETIME()))-1 AND ${snap_day_of_week_index} >= 0 ;;
     sql: ${snap_day_of_week_index} <= datepart(weekday, CONVERT (DATE, SYSDATETIME()))-1 AND ${snap_day_of_week_index} >= 0 ;;
-
   }
 
   dimension: sub_product_line {
