@@ -2,12 +2,17 @@ view: pipeline_snapshot {
   #sql_table_name: dbo.PIPELINE_SNAPSHOT ;;
 
   derived_table: {
+
     sql:
       SELECT
        *
       FROM
         dbo.PIPELINE_SNAPSHOT
-      where region='EMEA'         ;;
+      where region='EMEA';;
+
+      # where region='EMEA' OR region='APJ';;
+
+      # datagroup_trigger: sfdc_opportunity_default_datagroup
   }
 
   dimension: account_name_latin_capture {
@@ -166,6 +171,7 @@ view: pipeline_snapshot {
   dimension: sub_region1 {
     type: string
     sql: ${TABLE}.SubRegion1 ;;
+    # suggest_persist_for: "2 seconds"
   }
 
   dimension: sub_region2 {
@@ -211,7 +217,7 @@ view: pipeline_snapshot {
   measure: pipeline {
     type: sum
     sql: ${value_converted} ;;
-    value_format: "$ 0.00,,\" M\""
+    value_format: "$ 0,,\" M\""
     filters: {
       field: forecast_category
       value: "Pipeline"
@@ -221,7 +227,7 @@ view: pipeline_snapshot {
   measure: upside {
     type: sum
     sql: ${value_converted} ;;
-    value_format: "$ 0.00,,\" M\""
+    value_format: "$ 0,,\" M\""
     filters: {
       field: forecast_category
       value: "Upside"
@@ -231,7 +237,7 @@ view: pipeline_snapshot {
   measure: commit {
     type: sum
     sql: ${value_converted} ;;
-    value_format: "$ 0.00,,\" M\""
+    value_format: "$ 0,,\" M\""
     filters: {
       field: forecast_category
       value: "Commit"
@@ -241,7 +247,7 @@ view: pipeline_snapshot {
   measure: won {
     type: sum
     sql: ${value_converted} ;;
-    value_format: "$ 0.00,,\" M\""
+    value_format: "$ 0,,\" M\""
     filters: {
       field: forecast_category
       value: "Won"
@@ -251,7 +257,7 @@ view: pipeline_snapshot {
   measure: omitted {
     type: sum
     sql: ${value_converted} ;;
-    value_format: "$ 0.00,,\" M\""
+    value_format: "$ 0,,\" M\""
     filters: {
       field: forecast_category
       value: "Omitted"
@@ -266,7 +272,7 @@ view: pipeline_snapshot {
     THEN ${value_converted}
     ELSE NULL
     END ;;
-    value_format: "$ 0.00,,\" M\""
+    value_format: "$ 0,,\" M\""
   }
 
   measure: total_pipeline {
@@ -277,7 +283,7 @@ view: pipeline_snapshot {
     THEN ${value_converted}
     ELSE NULL
     END ;;
-    value_format: "$ 0.00,,\" M\""
+    value_format: "$ 0,,\" M\""
   }
 
   measure: Pipeline_Commit_Won{
@@ -288,13 +294,13 @@ view: pipeline_snapshot {
     THEN ${value_converted}
     ELSE NULL
     END ;;
-    value_format: "$ 0.00,,\" M\""
+    value_format: "$ 0,,\" M\""
   }
 
   measure: valueconverted {
     type: sum
     sql: ${value_converted} ;;
-    value_format: "$ 0.00,,\" M\""
+    value_format: "$ 0,,\" M\""
   }
 
   measure: dealcount {

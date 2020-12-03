@@ -168,6 +168,7 @@ view: std_disc_fiscal_time {
   dimension: fiscal_week_num_in_qtr {
     type: string
     sql: ${TABLE}.FiscalWeekNumInQtr ;;
+    suggest_persist_for: "2 seconds"
   }
 
   dimension: fiscal_wk_number_in_qtr {
@@ -175,6 +176,7 @@ view: std_disc_fiscal_time {
     #sql: toint(substring(${TABLE}.FiscalWeekNumInQtr,4,strlen(${TABLE}.FiscalWeekNumInQtr))) ;;
     #sql: substring(${fiscal_week_num_in_qtr}, 3, DATALENGTH(${fiscal_week_num_in_qtr}));;
     sql: cast(substring(${fiscal_week_num_in_qtr}, 3, DATALENGTH(${fiscal_week_num_in_qtr})) as bigint);;
+    suggest_persist_for: "2 seconds"
     }
 
   dimension: fiscal_week_qtr {
