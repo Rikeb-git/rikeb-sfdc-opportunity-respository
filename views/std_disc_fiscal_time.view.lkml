@@ -1,5 +1,6 @@
 view: std_disc_fiscal_time {
   sql_table_name: dbo.StdDisc_FiscalTime ;;
+
   drill_fields: [id]
 
   dimension: id {

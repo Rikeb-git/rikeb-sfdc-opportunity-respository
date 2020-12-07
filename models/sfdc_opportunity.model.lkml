@@ -54,9 +54,15 @@ explore: pipeline_snapshot {
     sql_on: ${pipeline_snapshot.product_line} = ${ProductLine.ProductLine} ;;
     relationship: many_to_one
   }
+  join: fiscal_quarter_year  {
+    from: fiscal_quarter_year
+    type: left_outer
+    sql_on: ${pipeline_snapshot.product_line} = ${fiscal_quarter_year.fiscal_quarter_year} ;;
+    relationship: many_to_one
+  }
 }
 
-
+explore: fiscal_quarter_year {}
 # explore: std_disc_fiscal_time {
 #   join: close_date {
 #     from: pipeline_snapshot
@@ -83,4 +89,3 @@ explore: pipeline_snapshot {
 #     relationship: many_to_one
 #   }
 # }
-explore: dcl_test {}

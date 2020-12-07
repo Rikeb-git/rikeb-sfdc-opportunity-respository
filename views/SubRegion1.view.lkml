@@ -11,6 +11,6 @@ view: SubRegion1 {
   dimension: SubRegion1 {
     type: string
     sql: ${TABLE}.SubRegion1 ;;
-    # bypass_suggest_restrictions: yes
+    bypass_suggest_restrictions: yes
   }
     }
